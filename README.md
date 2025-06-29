@@ -12,7 +12,7 @@ This guide shows how to deploy OPEA applications on Azure Kubernetes Service (AK
 
 The setup uses Terraform to create AKS cluster with the following properties:
 
-- 1-node AKS cluster with 50 GB disk and `Standard_D32d_v5` SPOT (or standard based on the application variables) instance (16 vCPU and 32 GB memory)
+- 1-node AKS cluster with 50 GB disk and `Standard_D16d_v5` SPOT (or standard based on the application variables) instance (16 vCPU and 64 GB memory)
 - Cluster autoscaling up to 10 nodes
 - Storage Class (SC) `azurefile-csi` and Persistent Volume Claim (PVC) `model-volume` for storing the model data
 
@@ -85,4 +85,48 @@ Delete the cluster via the following command. User has to input their Azure subs
 ```bash
 helm uninstall -n chatqna chatqna
 terraform destroy -var-file opea-chatqna.tfvars
+```
+
+## Modifications for Terraform Cloud
+
+A few minor changes were made to adapt for Terraform Cloud
+
+
+## How to connect to Azure AKS once deployed from Terraform Cloud
+
+### Generate kubeconfig file for the cluster
+
+Go to Azure Portal -> Kubernetes Services -> Select the required Cluster -> Overview -> Connect to find the entire command for the specific cluster itself or follow the below commands one by one by replacing with subscription Id, cluster name and resource group name.
+
+Open command prompt, run the below command
+
+```bash
+az account set --subscription aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+```
+
+To generate kubeconfig file, run the below command
+
+```bash
+az aks get-credentials --resource-group resourcegroupname --name clustername
+```
+
+Notes
+Above command will create the kubeconfig file in the user root directory. To get kubeconfig file in the specific location, use below command
+
+```bash
+az aks get-credentials --resource-group resourcegroupname --name clustername --file <specific_location>
+```
+
+### Connect and run kubectl commands
+
+(Optional) To bypass interactive login for kubectl commands:
+Quote
+
+kubelogin convert-kubeconfig -l azurecli --kubeconfig <FILEPATH>
+
+Execute the below commands to verify the connectivity to the cluster, replace <FILEPATH> with the path where the KUBECONFIG file is created:
+
+```bash
+kubectl get nodes --kubeconfig <FILEPATH>
+kubectl get pods -A --kubeconfig <FILEPATH>
 ```

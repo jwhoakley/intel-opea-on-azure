@@ -7,13 +7,13 @@ variable "location" {
 variable "cosmosdb_account_location" {
   description = "Cosmos DB account Location"
   type        = string
-  default     = "westus"
+  default     = "uksouth"
 }
 
 variable "cluster_name" {
   description = "AKS cluster name"
   type        = string
-  default     = "opea-aks-cluster"
+  default     = "opea-aks"
 }
 
 variable "kubernetes_version" {
@@ -61,7 +61,7 @@ variable "node_count" {
 variable "resource_group_name" {
   description = "Name of the resource group"
   type        = string
-  default     = null
+  default     = opea
 }
 
 variable "vnet_subnet_id" {
@@ -80,7 +80,7 @@ variable "cluster_version" {
 variable "instance_types" {
   description = "Azure VM instance type"
   type    = list(string)
-  default = ["Standard_D32d_v5"]
+  default = ["Standard_D16d_v5"]
 }
 
 variable "throughput" {
