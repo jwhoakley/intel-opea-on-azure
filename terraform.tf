@@ -9,10 +9,10 @@ terraform {
       version = "2.33.0"
     }
   }
-}
-
-# Azure provider configuration
-provider "azurerm" {
-  features {}
-  subscription_id = var.ARM_SUBSCRIPTION_ID
+  cloud {
+    organization = "AZJWHO"
+    workspaces {
+      name = "intel-opea-on-azure"
+    }
+  }
 }
