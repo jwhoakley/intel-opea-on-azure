@@ -1,7 +1,7 @@
 variable "location" {
   description = "Azure region"
   type        = string
-  default     = "eastus"
+  default     = "uksouth"
 }
 
 variable "cosmosdb_account_location" {
