@@ -61,7 +61,7 @@ variable "node_count" {
 variable "resource_group_name" {
   description = "Name of the resource group"
   type        = string
-  default     = opea
+  default     = null
 }
 
 variable "vnet_subnet_id" {
