@@ -28,11 +28,6 @@ variable "use_custom_node_config" {
   default     = true
 }
 
-variable "ARM_SUBSCRIPTION_ID" {
-  description  = "This is the Azure subscription id of the user"
-  type         = string
-}
-
 variable "os_disk_size_gb" {
   description = "OS disk size in GB for nodes"
   type        = number
