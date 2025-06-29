@@ -130,3 +130,24 @@ Execute the below commands to verify the connectivity to the cluster, replace <F
 kubectl get nodes --kubeconfig <FILEPATH>
 kubectl get pods -A --kubeconfig <FILEPATH>
 ```
+
+### local-exec provisioner error
+
+Error: local-exec provisioner error
+with null_resource.kubectl
+on azure_main.tf line 162, in resource "null_resource" "kubectl":
+  provisioner "local-exec" {
+Error running command 'az aks get-credentials --resource-group opea-aks-rg --name opea-aks --overwrite-existing': exit status 127. Output: /bin/sh: 1: az: not found
+
+Removing az command from code
+
+```bash
+kubectl get nodes --kubeconfig <FILEPATH>
+# Update kubeconfig
+resource "null_resource" "kubectl" {
+  provisioner "local-exec" {
+    command = "az aks get-credentials --resource-group ${azurerm_resource_group.main.name} --name ${azurer    m_kubernetes_cluster.main.name} --overwrite-existing"
+  }
+  depends_on = [azurerm_kubernetes_cluster.main]
+}
+```

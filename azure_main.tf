@@ -157,14 +157,6 @@ resource "azurerm_key_vault" "main" {
   }
 }
 
-# Update kubeconfig
-resource "null_resource" "kubectl" {
-  provisioner "local-exec" {
-    command = "az aks get-credentials --resource-group ${azurerm_resource_group.main.name} --name ${azurerm_kubernetes_cluster.main.name} --overwrite-existing"
-  }
-  depends_on = [azurerm_kubernetes_cluster.main]
-}
-
 # Application Insights
 resource "azurerm_log_analytics_workspace" "main" {
   name                = "workspace-${var.cluster_name}"
