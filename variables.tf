@@ -80,7 +80,7 @@ variable "cluster_version" {
 variable "instance_types" {
   description = "Azure VM instance type"
   type    = list(string)
-  default = ["Standard_D16d_v5"]
+  default = ["Standard_D32d_v5"]
 }
 
 variable "throughput" {
