@@ -31,7 +31,7 @@ variable "use_custom_node_config" {
 variable "os_disk_size_gb" {
   description = "OS disk size in GB for nodes"
   type        = number
-  default     = 50
+  default     = 100
 }
 
 variable "node_pool_type" {
